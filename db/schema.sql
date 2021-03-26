@@ -1,0 +1,3 @@
+DROP DATABASE IF EXISTS BubsBlogs_db;
+
+CREATE DATABASE BubsBlogs_db;
