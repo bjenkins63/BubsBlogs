@@ -1,82 +1,59 @@
 const express = require('express');
-const exphbs = require('express-handlebars');
-const fileUpload = require('express-fileupload');
-const mysql = require('mysql2');
-
+const blogRouter = require('./routes/blogs')
 const app = express();
-const PORT = process.env.PORT || 5001;
+// const bodyParser = require('body-parser')
+// const { check, validationResult } = require('express-validator')
+
+const db = require('./config/database')
+
+db.authenticate()
+.then(() => console.log('Database connected...'))
+.catch(err => console.log('Error: ' + err))
+
+const PORT = process.env.PORT || 5000;
 
 
+app.set('view engine', 'ejs')
 
-//default option
-app.use(fileUpload());
-
-// Static Files
-app.use(express.static('public'));
-app.use('/form', express.static(__dirname + '/upload'));
+app.use('/blogs', blogRouter)
 
 
-//template engine
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
-app.set('view engine', 'handlebars');
+app.get('/', (req, res) => {
+    const blogs = [{
+        title: 'Test Blog',
+        createdAt: new Date(),
+        description: 'this is a test description'
 
+    }]
+    res.render('index', { blogs: blogs })
+})
 
+// const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
-//connection pool
-const pool = mysql.createPool({
-    connectionLimit: 10,
-    host: 'localhost',
-    user: 'root',
-    password: 'Bernie2020',
-    database: 'BubsBlog'
-});
+// app.get('/register', (req, res) => {
+//     res.render('register')
+// })
 
-pool.getConnection((err, connection)=> {
-    if(err) throw err;
-    console.log('connected!')
-});
+// app.post('/register', urlencodedParser, [
+//     check('username', 'This username must be 6+ characters long')
+//     .exists()
+//     .isLength({ min: 6 }),
+//     check('email', 'Email is not valid')
+//     .isEmail()
+//     .normalizeEmail()
+// ],
+    
+//     (req, res) => {
 
-app.get('', (req, res) => {
-    res.render('index');
-
-    pool.getConnection((err, connection) => {
-        if(err) throw err;
-        console.log('connected');
-
-//         connection.query('UPDATE artist SET artwork_image = ? WHERE id = "1"', (err, rows) => {
-//             connection.release();
-
-            if(!err) {
-                res.redirect('/');
-            } else {
-                console.log(err);
-            }
-        });
-    });
-
-app.post('/upload', function(req, res) {
-    let sampleFile;
-    let uploadPath;
-
-    if(!req.files || Object.keys(req.files).length === 0){
-        return res.status(400).send('no file uploaded');
-    }
-
-    //name of the input is sampleFile
-    sampleFile = req.files.sampleFile;
-    uploadPath = __dirname + '/upload/' + sampleFile.name;
-
-    console.log(sampleFile);
-
-    //use mv() to place file on the server
-    sampleFile.mv(uploadPath, function (err) {
-        if (err) 
-        return res.status(500).send(err);
-
-        res.send('file uploaded');
-
-    });
-});
+//         const errors = validationResult(req)
+//         if(!errors.isEmpty()) {
+//             // return res.status(422).jsonp(errors.array())
+//             const alert = errors.array()
+//             res.render('register', {
+//                 alert
+//             })
+//         }
+// })
 
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));
