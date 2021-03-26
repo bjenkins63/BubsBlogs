@@ -22,23 +22,22 @@ app.listen(PORT);
 console.log(`Listening to server on port: ${PORT}`);
 
 
-//landing page
-app.get('/main', (req, res) => {
-    res.render("main") ;
+app.get('/', (req, res) => {
+    res.render("main", {title: "Bubs Blogs"}) ;
 })
 
 app.get('/about', (req, res) => {
-    res.render("about") ;
+    res.render("about", {title: "About Bubs"}) ;
 })
 
-app.get('/contact', (req, res) => {
-    res.render("contact") ;
+app.get('/create', (req, res) => {
+    res.render("create", {title: "New blog by Bubs"}) ;
 })
 
 app.get('/portfolio', (req, res) => {
-    res.render("portfolio") ;
+    res.render("portfolio", {title: "Bubs Portfolio"}) ;
 })
 
 app.get('/*', (req, res) => {
-    res.render("notfound") ;
+    res.render("notfound", {title: "woops, page not found"}) ;
 })
