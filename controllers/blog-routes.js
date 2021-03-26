@@ -1,35 +1,35 @@
 const router = require('express').Router();
 const Blog = require('../models/Blog');
+const withAuth = require('../utils/auth');
 
-router.post('/', async (req, res) => {
-  try { 
-    const blogData = await Blog.create({
-    title: req.body.title,
-    description: req.body.description,
-  });
-  res.status(200).json(blogData)
-} catch (err) {
-  res.status(400).json(err);
-}
-});
 
-router.put('/:id', async (req, res) => {
+router.get('/', withAuth, async (req, res) => {
   try {
-    const blog = await Blog.update(
-    {
-      title: req.body.title,
-      description: req.body.description,
-    },
-    {
-      where: {
-        id: req.params.id,
-      },
+    const userData = await User.findAll({
+      attributes: { exclude: ['password'] },
+      order: [['name', 'ASC']],
     });
 
-    res.status(200).json(dish);
+    const users = userData.map((project) => project.get({ plain: true }));
+
+    res.render('main', {
+      users,
+      // Pass the logged in flag to the template
+      logged_in: req.session.logged_in,
+    });
   } catch (err) {
-      res.status(500).json(err);
-    };
+    res.status(500).json(err);
+  }
+});
+
+router.get('/login', (req, res) => {
+  // If a session exists, redirect the request to the homepage
+  if (req.session.logged_in) {
+    res.redirect('/');
+    return;
+  }
+
+  res.render('login');
 });
 
 module.exports = router;
