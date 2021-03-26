@@ -1,5 +1,6 @@
 const express = require('express')
 const Blog = require('./../models/blog')
+const db = require('../config/database');
 const router = express.Router()
 
 router.get('/new', (req, res) => {
@@ -41,7 +42,7 @@ function saveBlogAndRedirect(path) {
     try {
       blog = await blog.save()
       res.redirect(`/blogs/${blog.slug}`)
-    } catch (e) {
+    } catch (err) {
       res.render(`blogs/${path}`, { blog: blog })
     }
   }

@@ -14,7 +14,7 @@
       <%= blog.createdAt.toLocaleDateString() %>
     </div>
     <a href="/" class="btn btn-secondary">All Blogs</a>
-    <a href="/blogs/edit/<%= article.id %>" class="btn btn-info">Edit</a>
+    <a href="/blogs/edit/<%= blog.id %>" class="btn btn-info">Edit</a>
 
     <div>
       <%- blog.sanitizedHtml %>

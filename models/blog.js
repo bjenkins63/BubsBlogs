@@ -7,11 +7,7 @@ const Blog = db.define('blog', {
     },
     description: {
         type: Sequelize.STRING
-    },
-    createdAt: {
-        type: Date,
-        // default: Date.now
-        }
+    }
 })
 
 Blog.sync().then(() => {

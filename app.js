@@ -12,23 +12,19 @@ db.authenticate()
 
 const PORT = process.env.PORT || 5000;
 
-
 app.set('view engine', 'ejs')
 
 app.use('/blogs', blogRouter)
 
-
 app.get('/', (req, res) => {
     const blogs = [{
         title: 'Test Blog',
-        createdAt: new Date(),
-        description: 'this is a test description'
-
+        description: 'this is a test description',
     }]
     res.render('index', { blogs: blogs })
 })
 
-// const urlencodedParser = bodyParser.urlencoded({ extended: false })
+// const urlencoded = urlencoded({ extended: false })
 
 // app.get('/register', (req, res) => {
 //     res.render('register')
