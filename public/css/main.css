@@ -22,6 +22,10 @@ footer{
     padding: 10px;
 }
 
+.card-title {
+    color: white
+}
+
 #logo {
     width:70px;
     vertical-align: bottom;
