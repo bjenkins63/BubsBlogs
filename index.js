@@ -16,7 +16,7 @@ app.engine('hbs', exphbs({
 
 app.listen(process.env.PORT || 3000);
 
-console.log(`Listening to server: http://localhost:${port}`);
+console.log(`Listening to server`);
 
 //landing page
 app.get('/', (req, res) => {
