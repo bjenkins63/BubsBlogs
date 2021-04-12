@@ -19,8 +19,8 @@ app.listen(process.env.PORT || 3000);
 console.log(`Listening to server`);
 
 //landing page
-app.get('/', (req, res) => {
-    res.render("main");
+app.get('/index', (req, res) => {
+    res.render("web");
 })
 
 app.get('/portfolio', (req, res) => {
