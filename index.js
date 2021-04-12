@@ -23,16 +23,20 @@ app.get('/', (req, res) => {
     res.render("main");
 })
 
-app.get('/about', (req, res) => {
-    res.render("about");
+app.get('/portfolio', (req, res) => {
+    res.render("portfolio");
+})
+
+app.get('/web', (req, res) => {
+    res.render("web");
+})
+
+app.get('/art', (req, res) => {
+    res.render("art");
 })
 
 app.get('/contact', (req, res) => {
     res.render("contact");
-})
-
-app.get('/portfolio', (req, res) => {
-    res.render("portfolio");
 })
 
 app.get('/*', (req, res) => {
