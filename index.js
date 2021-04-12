@@ -14,8 +14,8 @@ app.engine('hbs', exphbs({
     defaultLayout: 'index'
 }));
 
-const port = 3020;
-app.listen(port);
+app.listen(process.env.PORT || 3000);
+
 console.log(`Listening to server: http://localhost:${port}`);
 
 //landing page
