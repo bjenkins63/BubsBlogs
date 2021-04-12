@@ -19,7 +19,7 @@ app.listen(process.env.PORT || 3000);
 console.log(`Listening to server`);
 
 //landing page
-app.get('/', (req, res) => {
+app.get('/main', (req, res) => {
     res.render("main");
 })
 
