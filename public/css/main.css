@@ -26,6 +26,10 @@ footer{
     color: black 
 }
 
+.card-text {
+    color: black 
+}
+
 #logo {
     width:70px;
     vertical-align: bottom;
